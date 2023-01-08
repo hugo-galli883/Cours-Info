@@ -13,4 +13,7 @@ int ex4();
 void f(int n, int *nmax);
 int ex5();
 
+//Ex6
+void incremente(int* n);
+
 #endif

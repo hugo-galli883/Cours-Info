@@ -1,7 +1,12 @@
 #include <stdio.h>
 #include "TP1.h"
 
+/*void incremente(int* n) {
+    (*n)++ ;
+}*/
 
 int main() {
-    ex5();
+    int n = 6;
+    incremente(&n);
+    printf("%d\n",n);
 }

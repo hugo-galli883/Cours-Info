@@ -69,5 +69,5 @@ int ex5() {
 
 //Ex6
 void incremente(int* n) {
-    *n++;
+    (*n)++;
 }
