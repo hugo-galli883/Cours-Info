@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdbool.h>
-//#include "test.h" 
 
 int rec(int a) {
     if(a == 0) {
