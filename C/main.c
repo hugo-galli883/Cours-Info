@@ -11,7 +11,7 @@ int rec(int a) {
 
 int g(int n) {
     /*int ans = n + 1;
-    return ans; */
+    return ans;*/
     return n+1 ;
 }
 
