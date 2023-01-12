@@ -3,12 +3,11 @@
 #include <stdlib.h>
 
 //23
-/*
-void swap(int* x, int* y) {
+void swap1(int* x, int* y) {
     int c = *x;
     *x = *y;
     *y = c;
-} */
+}
 
 //24
 bool is_sorted(int t[], int n) {
@@ -42,7 +41,7 @@ void knuth_shuffle(int a[], int n) {
 }
 
 //27
-/*
+
 void two_way_sort(int a[], int n) {
     int nb1 = 0;
     for(int i = 0 ; i < n ; i++) {
@@ -50,19 +49,6 @@ void two_way_sort(int a[], int n) {
     }
     for(int i = 0; i < n-nb1 ; i++) { a[i] = 0; }
     for(int i = n-nb1 ; i < n ; i++) { a[i] = 1; }
-}*/
-
-void two_way_sort(int a[], int n) {
-    int g = 0;
-    int d = n-1;
-    while(g <= d) {
-        if(a[g] == 1) {
-            swap(a,g,d);
-            d--;
-        } else {
-            g++;
-        }
-    }
 }
 
 //28
@@ -119,11 +105,4 @@ void draw(int n) {
         }
         printf("\n");
     }
-}
-
-int main() {
-    /*for(int i = 0; i < 16 ; i++) {
-        printf("%d\n",1&i);
-    }*/
-    draw(128);
 }
