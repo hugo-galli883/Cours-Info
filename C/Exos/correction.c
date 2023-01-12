@@ -32,3 +32,19 @@ int binary_search(int v, int a[], int n) {
     }
     
 }
+
+int dichotomie(int t[], int n, int x) {
+    int g = 0;
+    int d = n;
+    while(d - g > 0) {
+        int m = (g + d)/2;
+        if(t[m] == x) {
+            return m;
+        } else if(t[m] < x) {
+            g = m + 1;
+        } else {
+            d = m;
+        }
+    }
+    return -1;
+}
