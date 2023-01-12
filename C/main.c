@@ -27,47 +27,8 @@ int division(int a, int b, int *r) {
     }
 }
 
-int main() {
-    printf("Hello World\n");
-    bool test = true;
-    if( test & test ) {
-        printf("test\n");
-    }
-    int a = 3;
-    int b = ++a;
-    printf("%d - %d\n",a,b);
-    a = 0;
-    if (a = 0){
-        printf("a est nul");
-    }
-    printf("result de rec : %d\n",rec(4));
-    printf("%d\n",g(42));
-    int n = 32;
-    printf("L'adresse memoire vers n est : %p\n",&n); // &n est un "pointeur" : il contient l'adresse memoire de n
-    a = 32;
-    b = 6;
-    int q;
-    printf("Le resultat de la division euclidienne de %d par %d est : %d\n",a,b,division(a,b,&q));
-    int t[4];
-    t[1] = 42;
-    t[3] = 17;
-    printf("t[1] = %d\n",t[1]);
-    printf("t[2] = %d\n",t[2]);
-    //t[10] = 32;
-    //printf("carre de a = %d\n", carre(a))
-    /*switch (a == 2) {
-        default:
-            printf("2\n");
-            break;
-
-        case (3) :
-            printf("3\n");
-            break;
-    } */
-    /* int i = 0;
-    while(true) { //Sature la memoire
-        int *p = malloc(sizeof(i));
-        i++;
-    } */
+int main(int agrc, char **t) {
+    //char* s = "Salut !";
+    printf("%s\n",t[1]);
     return 0;
 }

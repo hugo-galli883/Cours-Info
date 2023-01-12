@@ -91,6 +91,8 @@ int binary_search(int v, int a[], int n) {
     return -1;
 }
 
+//32
+
 //34
 void draw(int n) {
     int l = 0;
