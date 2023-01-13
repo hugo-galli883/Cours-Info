@@ -18,8 +18,17 @@ void two_way_sort(int a[], int n);
 //28
 void dutch_flag(int a[], int n);
 
+//29
+void insertion_sort(int a[], int n);
+
 //30
 int binary_search(int v, int a[], int n);
 
+//32
+int maximum_subarray(int a[], int n);
+
 //34
 void draw(int n);
+
+
+void bubble_sort(int a[], int n);

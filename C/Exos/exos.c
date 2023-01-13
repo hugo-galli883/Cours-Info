@@ -73,6 +73,21 @@ void dutch_flag(int a[], int n) {
     }
 }
 
+//29
+void insertion_sort(int a[], int n) {
+    int b[n];
+    int min;
+    for(int i = 0 ; i < n ; i++) {
+        min = i;
+        for(int j = i ; j < n ; j++) {
+            if(a[j] < a[min]) {
+                min = j;
+            }
+        }
+        swap(a,i,min);
+    }
+}
+
 //30
 int binary_search(int v, int a[], int n) {
     int i = 0;
@@ -92,6 +107,22 @@ int binary_search(int v, int a[], int n) {
 }
 
 //32
+int maximum_subarray(int a[], int n) {
+    int max = a[0];
+    int m = 0;
+    for(int i = 0; i < n ; i++) {
+        for(int j = i+1 ; j < n ; j++) {
+            for(int l = i ; l <= j ; l++) {
+                m += a[l];
+            }
+            if(m > max) {
+                max = m;
+            }
+            m = 0;
+        }
+    }
+    return max;
+}
 
 //34
 void draw(int n) {
@@ -106,5 +137,20 @@ void draw(int n) {
             }
         }
         printf("\n");
+    }
+}
+
+void bubble_sort(int a[], int n) {
+    bool sorted = false;
+    while(!sorted) {
+        sorted = true;
+        for(int i = 0; i < n-1 ; i++) {
+            if(a[i]>a[i+1]) {
+                sorted = false;
+                int c = a[i];
+                a[i] = a[i+1];
+                a[i+1] = c;
+            }
+        }
     }
 }
