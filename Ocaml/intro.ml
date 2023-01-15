@@ -31,5 +31,3 @@ let rec max_liste l =
 let max x y =
   if x > y then x
   else y
-
-<>
