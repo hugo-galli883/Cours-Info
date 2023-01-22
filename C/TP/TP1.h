@@ -1,6 +1,3 @@
-#ifndef TP1
-#define TP1
-
 //Ex3
 void extrema(int t[], int n, int *min, int *max);
 int ex3();
@@ -15,5 +12,3 @@ int ex5();
 
 //Ex6
 void incremente(int* n);
-
-#endif

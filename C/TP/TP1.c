@@ -1,5 +1,3 @@
-#include <stdio.h>
-
 //Ex3
 void extrema(int t[], int n, int *min, int *max){
     int M = 0;
@@ -70,4 +68,8 @@ int ex5() {
 //Ex6
 void incremente(int* n) {
     (*n)++;
+}
+
+static int main() {
+    
 }

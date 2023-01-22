@@ -1,7 +1,3 @@
-#include "squelette.c"
-#include "TP2.h"
-/**/
-
 //Ex4.2
 int ex423(){
     for(int i = 0 ; i < WIDTH ; i++) {
