@@ -1,5 +1,8 @@
 {
-    "ocaml.sandbox": {
-        "kind": "global"
-    }
+  "ocaml.sandbox": {
+    "kind": "global"
+  },
+  "files.associations": {
+    "stdlib.h": "c"
+  }
 }
