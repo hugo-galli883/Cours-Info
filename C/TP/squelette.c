@@ -131,6 +131,7 @@ void draw_circle(int xc, int yc, int radius, rgb c);
 /* Fonction main */
 /*****************/
 
+/*
 int main(void){
     put_pixel(0, 0, green);
     put_pixel(1, 0, white);
@@ -140,3 +141,4 @@ int main(void){
     put_pixel(2, 1, blue);
     print_canvas();
 }
+*/
