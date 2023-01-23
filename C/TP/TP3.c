@@ -3,34 +3,52 @@
 // Ex1.1
 int array_get(int_array *t, int i)
 {
-    int l = t->len;
-    assert(i < l);
+    assert(i < t->len);
     int *a = t->data;
     return a[i];
 }
+/* 
+int array_get(int_array *t, int i) {
+    assert( 0 ̼< i && i < t->len);
+    return t->data[i];
+}
+*/
 
 // Ex1.2
 void array_set(int_array *t, int i, int x)
 {
-    int l = t->len;
-    assert(i < l);
+    assert(i < t->len);
     t->data[i] = x;
 }
+
+/*
+void array_set(int array *t, int i, int x) {
+    assert(0 <= i && i < t->len);
+    t->data[i] = x;
+}
+*/
 
 // Ex1.3
 void array_delete(int_array *t)
 {
     free(t->data);
+    free(t);
 }
+
+/*
+void array_delete(int_array *t) {
+
+}
+*/
 
 // Ex2.1.1
 int lenght(int_dynarray *t)
 {
-    int l = t->len;
-    return l;
+    return t->len;
 }
 
 // Ex2.1.2
+/*
 int_dynarray *make_empty(void)
 {
     int_dynarray t = {.len = 0,
@@ -38,63 +56,90 @@ int_dynarray *make_empty(void)
                       .data = NULL};
     return &t;
 }
+*/
+
+int_dynarray *make_empty(void) {
+    int_dynarray *t = malloc(sizeof(int_dynarray));
+    t->len = 0;
+    t->capacity = 0;
+    t->data = NULL;
+    return t;
+}
+
 
 // Ex2.1.3
 int get(int_dynarray *t, int i)
 {
-    int l = t->len;
-    assert(i < l);
+    assert(i < t->len);
     int *a = t->data;
     return a[i];
 }
 
 void set(int_dynarray *t, int i, int x)
 {
-    int l = t->len;
-    assert(i < l);
+    assert(i < t->len);
     t->data[i] = x;
 }
 
 // Ex2.1.4
 int pop(int_dynarray *t)
 {
-    int l = t->len;
-    int a = t->data[l - 1];
-    t->len = l - 1;
+    int a = t->data[t->len - 1];
+    t->len--;
     return a;
 }
 
 // Ex2.1.5
+/*
 void resize(int_dynarray *t, int new_capacity)
 {
     t->capacity = new_capacity;
 }
+*/
+
+void resize(int_dynarray *t, int new_capacity) {
+    assert(t->len <= new_capacity);
+    int *new_data = malloc(new_capacity * sizeof(int));
+    for(int i = 0 ; i < t->len ; i++) {
+        new_data[i] = t->data[i];
+    }
+    free(t->data);
+    t->data = new_data;
+    t->capacity = new_capacity;
+}
+
 
 // Ex2.1.6
+/*
 void push(int_dynarray *t, int x)
 {
-    int l = t->len;
-    int c = t->capacity;
-    if (c == l)
+    if (t->capacity == t->len)
     {
-        c++;
-        resize(&t, c);
+        t->capacity++;
+        resize(&t, t->capacity);
         int a[11];
-        for (int i = 0; i < l; i++)
+        for (int i = 0; i < t->len; i++)
         {
             a[i] = t->data[i];
             // printf("%d\n", (t->data)[0]);
         }
-        a[l - 1] = x;
-        l++;
-        t->len = l;
+        a[t->len - 1] = x;
+        t->len++;
         t->data = &a;
     }
     else
     {
-        t->len = l + 1;
-        t->data[l] = x;
+        t->len++;
+        t->data[t->len-1] = x;
     }
+}
+*/
+void push(int_dynarray *t, int x) {
+    if(t->len == t->capacity) {
+        resize(t, 1 + t->capacity);
+    }
+    t->data[t->len] = x;
+    t->len++;
 }
 
 // Ex2.1.7
@@ -113,41 +158,28 @@ Total : 3n + 15 -> O(n)
 */
 
 // Ex2.3
-void push(int_dynarray *t, int x)
+void push2(int_dynarray *t, int x)
 {
-    int l = t->len;
-    int c = t->capacity;
-    if (c == l)
+    if (t->capacity == t->len)
     {
-        resize(&t, 2 * c);
-        int a[11];
-        for (int i = 0; i < l; i++)
-        {
-            a[i] = t->data[i];
-            // printf("%d\n", (t->data)[0]);
+        if(t->capacity != 0) {
+            resize(t, 2 * t->capacity);
+        } else {
+            resize(t, 1);
         }
-        a[l - 1] = x;
-        l++;
-        t->len = l;
-        t->data = &a;
     }
-    else
-    {
-        t->len = l + 1;
-        t->data[l] = x;
-    }
+    t->data[t->len] = x;
+    t->len++;
 }
 
 // Ex2.5
 int pop2(int_dynarray *t)
 {
-    int l = t->len;
-    int c = t->capacity;
-    int a = t->data[l - 1];
-    t->len = l - 1;
-    if (l < c / 2)
+    int a = t->data[t->len - 1];
+    t->len--;
+    if (t->len < t->capacity / 2)
     {
-        resize(&t, c / 2);
+        resize(t, t->capacity / 2);
     }
     return a;
 }
@@ -155,13 +187,11 @@ int pop2(int_dynarray *t)
 // Ex2.6
 int pop3(int_dynarray *t)
 {
-    int l = t->len;
-    int c = t->capacity;
-    int a = t->data[l - 1];
-    t->len = l - 1;
-    if (l < c / 4)
+    int a = t->data[t->len- 1];
+    t->len--;
+    if (t->len < t->capacity / 4)
     {
-        resize(&t, c / 2);
+        resize(t, t->capacity / 2);
     }
     return a;
 }
@@ -171,7 +201,7 @@ void insert_at(int_dynarray *t, int i, int x)
 {
     int l = t->len;
     int last = t->data[l - 1];
-    push(&t, last);
+    push(t, last);
     for (int j = l - 1; j > i; j++)
     {
         t->data[j] = t->data[j - 1];
@@ -187,11 +217,12 @@ int extract_at(int_dynarray *t, int i)
     {
         t->data[j] = t->data[j + 1];
     }
-    pop(&t);
+    pop(t);
     return a;
 }
 
 // Ex3.1
+/*
 int position(int_dynarray *t, int x)
 {
     int l = t->len;
@@ -204,19 +235,15 @@ int position(int_dynarray *t, int x)
         }
     }
     return l;
-}
+} */
 
 int main()
 {
-    int a[] = {1, 4, 9, 21, 0, 3, 1, 8, 3, 9};
-    int_dynarray t = {.len = 10,
-                      .capacity = 13,
-                      .data = &a};
-    int l1 = lenght(&t);
-
-    push(&t, 12);
-    int l = t.data[10];
-    int l2 = lenght(&t);
-    printf("%d\n%d\n%d\n", l, l1, l2);
-    return 0;
+    int_dynarray *t = make_empty();
+    int c1 = t->capacity;
+    push2(t, 34);
+    int c2 = t->capacity;
+    int l2 = t->len;
+    int a = t->data[l2-1];
+    printf("%d\n%d\n%d\n%d\n",c1,c2,l2,a);
 }
