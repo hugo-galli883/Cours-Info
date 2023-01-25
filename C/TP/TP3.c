@@ -201,7 +201,7 @@ void insert_at(int_dynarray *t, int i, int x)
 {
     int l = t->len;
     int last = t->data[l - 1];
-    push(t, last);
+    push2(t, last);
     for (int j = l - 1; j > i; j++)
     {
         t->data[j] = t->data[j - 1];
@@ -217,25 +217,22 @@ int extract_at(int_dynarray *t, int i)
     {
         t->data[j] = t->data[j + 1];
     }
-    pop(t);
+    pop3(t);
     return a;
 }
 
 // Ex3.1
-/*
 int position(int_dynarray *t, int x)
 {
-    int l = t->len;
-    int in[] = t->data;
-    for (int i = 0; i < l; i++)
+    for (int i = 0; i < t->len; i++)
     {
-        if (in[i] > x)
+        if (t->data[i] > x)
         {
             return i;
         }
     }
-    return l;
-} */
+    return t->len;
+}
 
 int main()
 {
