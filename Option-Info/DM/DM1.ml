@@ -1,7 +1,11 @@
 let base = 4;;
 
 type nat = int list;;
-type z = {signe: int; nat: nat};
+type z = {signe: int; nat: nat};;
+type dya = { m : z ; e : int } ;;
+type ldb = {
+  lg : int ; g : dya list ;
+  ld : int ; d : dya list };;
 
 (*Ex1 ~*)
 let cons_nat (c :int) (n :nat) :nat =
@@ -65,7 +69,7 @@ let sous_nat (n1 :nat) (n2 :nat) :nat =
   sous n1 n2 0;;
 
 (*Ex5*)
-let div2_nat (n :nat) =
+let div2_nat (n :nat) :(nat * int)=
   let reste2 (n :nat ) =
     match n with
     | [] -> 0
@@ -111,9 +115,38 @@ let mul_puiss2_z (p :int) (z1 :z) :z =
 (*Ex9 -> problème sur fonction "puissance2"*)
 let decomp_puiss2_z z =
   let rec puissance2 (z1 :nat) (n :int) :(nat * int) =
-    let (a , b) = (div2_nat z1) in
+    let (a, b) = div2_nat z1 in
     if ((cmp_nat a [0;0]) = 1) then (puissance2 a n+1)
     else (a,n)
   in
   let c,d = puissance2 z.nat 0 in
   ({signe = z.signe ; nat = c},d);;
+
+(*2 - Nombres dyadiques*)
+
+(*Ex10*)
+let div2_dya (d :dya) :dya =
+  {m = d.m ; e = d.e - 1};;
+
+(*Ex11*)
+let rec add_dya (d1 :dya) (d2 :dya) :dya =
+  if(d1.e > d2.e) then {m = (add_z d2.m (mul_puiss2_z (d1.e - d2.e) d1.m)) ; e = d2.e}
+  else add_dya d2 d1;;
+
+(*Ex12*)
+let sous_dya (d1 :dya) (d2 :dya) :dya =
+  if(d1.e > d2.e) then {m = (add_z (mul_puiss2_z (d1.e - d2.e) (neg_z d1.m)) d2.m) ; e = d2.e}
+  else {m = (add_z (mul_puiss2_z (d2.e - d1.e) (neg_z d1.m)) d2.m) ; e = d1.e};;
+
+(*Ex13*)
+let ldb_est_vide (l :ldb) :bool =
+  if(l.ld = 0 && l.lg = 0) then true
+  else false;;
+
+(*Ex14*)
+let premier_g (l :ldb) :dya =
+  if(l.lg != 0) then
+    match l.g with
+    | x::xs -> x
+  else
+    0;
