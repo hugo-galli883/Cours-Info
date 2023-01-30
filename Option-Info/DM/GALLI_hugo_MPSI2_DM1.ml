@@ -145,8 +145,50 @@ let ldb_est_vide (l :ldb) :bool =
 
 (*Ex14*)
 let premier_g (l :ldb) :dya =
-  if(l.lg != 0) then
+    let rec reverse (h :dya list) (t :dya list) :dya list =
+      match t with
+      | [] -> h
+      | hd :: tl -> reverse (hd :: h) tl
+    in
     match l.g with
     | x::xs -> x
-  else
-    0;
+    | _ -> (
+    l.g = reverse [] l.d;
+    l.ld = 0;
+    match l.g with
+    | x::xs -> x
+    | _ -> failwith "ldb vide"
+    );;
+
+(*Ex15*)
+let inverse_ldb (l :ldb) :ldb =
+  let rec reverse (h :dya list) (t :dya list) :dya list =
+    match t with
+    | [] -> h
+    | hd :: tl -> reverse (hd :: h) tl
+  in
+  {lg = l.ld ; g = (reverse [] l.d) ; ld = l.lg ; d = (reverse [] l.g)};;
+
+(*Ex16*)
+
+(*Ex17*)
+let ajoute_g (d :dya) (ldb1 :ldb) :ldb =
+  {lg = ldb1.lg ; g = d::ldb1.g ; ld = ldb1.ld ; d = ldb1.d};;
+
+(*Ex18*)
+let enleve_g (d :dya) (ldb1 :ldb) :ldb =
+  let rm list =
+    match list with
+    | x::xs -> xs
+  in
+  invariant_ldb;
+  {lg = ldb1.lg ; g = (rm ldb1.g) ; ld = ldb1.ld ; d = ldb1.d};;
+
+(*Ex19*)
+(*
+On suppose que c = 3.
+Alors, une opération sur 3 nécessite un "invariant_ldb".
+On a donc (1/3)*(3*n) = n opérations en moyenne
+Les complexités de "enleve_g" et "ajoute_g" sont quand à elles similaires, et dépendent de n.
+Leur complexité est donc en n²
+*)
