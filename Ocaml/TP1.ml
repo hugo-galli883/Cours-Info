@@ -69,7 +69,7 @@ let nouvelle_pile (n :int) :'a pile =
   let a = Array.make n None in
   {donnees = a ; courant = -1};;
 
-let pop pile =
+let pop (pile :'a pile) :'a option =
   if pile.courant = -1 then
     None
   else 
@@ -129,3 +129,53 @@ let de_liste_i (l :'a list) (n :int) :'a file_i =
   let f1 = file_vide_i n in
   add l f1;
   f1;;
+
+(*2.3*)
+(*2.3.1*)
+let peek_1 (p :'a pile) :'a option =
+  let a = (pop p) in
+  if a = None then None
+  else 
+    begin
+      (p.courant <- (p.courant + 1)); 
+      a;
+    end;;
+
+let est_vide_1 (p :'a pile) :bool =
+  let a = peek_1 p in
+  if a = None then true
+  else false ;;
+
+(* La fonction modifie et vide les pile données. De plus, en sortie de boucle on ne sait pas si une pile est vide ou si une inégalité a été trouvée (potentiellement utile pour la recherche de sous-pile)*)
+
+let iter_destructif (f :'a -> unit) (s: 'a pile) :unit =
+  let rec aux (f1 :'a -> unit) (p: 'a pile) :unit =
+    match pop p with
+    | None -> ()
+    | Some a -> f1 a;
+    aux f1 p;
+  in
+  aux f s;;
+
+let copie (s :'a pile) =
+  let s_copie = nouvelle_pile (capacite s) in
+  let miroir = nouvelle_pile (capacite s) in
+  iter_destructif (fun x -> (push x miroir)) s;
+  iter_destructif (fun x -> (push x s_copie; push x s) ) miroir;
+  s_copie;;
+
+let egal (s :'a pile) (t :'a pile) :bool =
+  let s2 = copie s in
+  let t2 = copie t in
+  while not (est_vide_1 s2) && not (est_vide_1 t2) && pop s2 = pop t2 do
+    ()
+  done;
+  est_vide_1 s2 && est_vide_1 t2;;
+
+(*2.3.2*)
+let est_vide (p :'a pile) :bool =
+  if(p.courant = -1) then true
+  else false;;
+
+let flush (p :'a pile) :unit =
+  p.courant <- 0;;
