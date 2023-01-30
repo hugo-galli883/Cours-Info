@@ -70,12 +70,12 @@ let nouvelle_pile (n :int) :'a pile =
   {donnees = a ; courant = -1};;
 
 let pop pile =
-  if pile.courant = 0 then
+  if pile.courant = -1 then
     None
   else 
     begin
     pile.courant <- pile.courant - 1;
-    pile.donnees.(pile.courant)
+    pile.donnees.(pile.courant +1)
     end;;
 
 let push a pile =
@@ -83,5 +83,49 @@ let push a pile =
   pile.courant <- pile.courant + 1;;
 
 (*2.2*)
+type 'a file_i = {
+  donnees : 'a option array;
+  mutable entree :int;
+  mutable sortie :int;
+  mutable cardinal :int
+  }
 
 (*2) On a f.sortie = f.entree + f.cardinal *)
+
+(*3) Cela n'est pas possible car on ne sait pas si le tableau a dépassé sa capacité ou non. On peut pour cela systématiquement laisser au moins une case vide*)
+let file_vide_i (i :int) :'a file_i =
+  let donnees = Array.make i None in
+  {
+  donnees = donnees;
+  entree = 0;
+  sortie = 0;
+  cardinal = i
+  };;
+
+let capacite_i (f :'a file_i) :int =
+  f.cardinal;;
+
+let ajoute_i (x :'a) (f :'a file_i) :unit = (*probleme de syntaxe*)
+  f.donnees(f.entree) <- x;
+  f.entree := f.entree + 1;;
+
+let enleve_i (f :'a file_i) :'a option = (*probleme de syntaxe*)
+  if f.sortie = 0 then None
+  else
+    begin
+    f.sortie <- (f.sortie - 1);
+    f.donnees(f.sortie + 1);
+    end;;
+
+let de_liste_i (l :'a list) (n :int) :'a file_i =
+  let rec add (l1 :'a list) (f1 :'a file_i) :unit =
+    match l1 with
+    | x::xs -> begin
+      (*ajoute_i x f1; *)
+      add xs f1;
+    end
+    | _ -> ()
+  in
+  let f1 = file_vide_i n in
+  add l f1;
+  f1;;
