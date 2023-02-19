@@ -93,7 +93,7 @@ let profondeur (g :int list array) (s :int) :unit =
     let x = (is_pop pile) in
     if (visite.(x) = false ) then begin
         visite.(x) <- true;
-        add_pile pile g.(x);
+        is_push pile g.(x);
       end
     else ()
   in
