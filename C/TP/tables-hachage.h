@@ -34,7 +34,11 @@ int puissance(int p)
     return s;
 }
 
+//Part I
 u_int64_t hash(T x, int p);
 set *set_new(void);
 void set_delete(set *s);
 bool set_is_member(set *s, T x);
+
+//Part II
+T set_get(set *s, u_int64_t i);

@@ -1,10 +1,21 @@
 #include "tables-hachage.h"
 
-u_int64_t hash(T x, int p)
+/*u_int64_t hash(T x, int p)
 {
     u_int64_t r = x / puissance(p);
     return r;
+}*/
+
+//Correction:
+u_int64_t hash(T x, int p) {
+    int n = 1;
+    for(int i = 0; i < p ; i++) {
+        n = 2 * n;
+    }
+    int f = x % n;
+    return f;
 }
+
 
 set *set_new(void)
 {
@@ -31,18 +42,7 @@ set *set_example(void)
     t[0] = b1;
     t[1] = b2;
     t[3] = b3;
-
-    /*t[0] = {status : 1,
-            element : 1492};
-    t[1] = {status : 1,
-            element : 1939};
-    t[3] = {status : 1,
-            element : 1515};*/
-    // printf("%d\n", t[0]->element);
     s->a = t;
-    //(s->a)->element = 1492;
-    //(s->a[1])->element = 1939;
-    //(s->a[3])->element = 1515;
     s->nb_empty = 1;
     return s;
 }
@@ -59,22 +59,27 @@ bool set_is_member(set *s, T x)
     u_int8_t k = 1;
     while (k != 0 && i < puissance(s->p))
     {
-        /*if ((s->a[i])->element = x)
+        if ((s->a[i]).element = x)
         {
             return true;
-        }*/
+        }
     }
     return false;
 }
 
+T set_get(set *s, u_int64_t i) {
+    bucket b = (s->a)[i];
+    return b.element;
+}
+
 int main(void)
 {
-    /*set *s = set_example();
+    set *s = set_example();
     bucket *k = s->a;
-    bucket m = k[0];*/
+    bucket m = k[3];
     bucket b1 = {status : 1,
                  element : 1492};
-    // u_int8_t n = b1->status;
-    printf("%d\n", b1->status);
+    u_int8_t n = b1.status;
+    printf("%d\n", set_get(s, 1));
     return 1;
 }
