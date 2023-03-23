@@ -42,3 +42,12 @@ bool set_is_member(set *s, T x);
 
 //Part II
 T set_get(set *s, u_int64_t i);
+u_int64_t set_begin(set *s);
+u_int64_t set_end(set *s);
+u_int64_t set_next(set *s, u_int64_t i);
+
+//Part III
+u_int64_t set_search(set *s, T x, bool *found);
+bool set_is_member_v2(set *s, u_int32_t x);
+void set_resize(set *s, int p);
+void set_add(set *s, T x);
